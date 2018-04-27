@@ -1,0 +1,241 @@
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>MRS Mall a Entertainment Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+	<!--for-mobile-apps-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="MRS Mall Responsive Website Template, Web Templates, Flat Web Templates, Android Compatible web template, 
+		Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<!--//for-mobile-apps-->
+	
+	<!-- Custom-Theme-Files -->
+    <!-- Bootstrap-CSS --> 			<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <!-- JQuery --> 				<script th:src="@{/js/jquery.min.js}"></script>
+    <!-- Bootstrap-Main --> 		<script src="@{/js/bootstrap.min.js}">		</script>
+    <!-- Index-Page-Styling --> 	<link rel="stylesheet" th:href="@{/css/style.css}" type="text/css" media="all">
+	<!-- Font-awesome-Styling --> 	<link rel="stylesheet" th:href="@{/css/font-awesome.css}" type="text/css" media="all">
+
+	
+<!-- Js for Responsive slider -->	
+	<script th:src="@{/js/modernizr.js}" type="text/javascript"></script>
+	<script th:src="@{/js/responsiveslides.min.js}"></script>
+	<script> 
+		// You can also use "$(window).load(function() {"
+		$(function () {
+		  // Slideshow 1
+		  $("#slider1").responsiveSlides({
+			 auto: true,
+			 nav: true,
+			 speed: 500,
+			 namespace: "callbacks",
+		  });
+		});
+	</script>
+
+	<!--JS for animate-->
+	<link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css" media="all">
+	<script th:src="@{/js/wow.min.js}"></script>
+		<script>
+			new WOW().init();
+		</script>
+	<!--//end-animate-->
+
+	<script th:src="@{/js/jquery.countdown.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/jquery.countdown.css}" />
+	<link rel="stylesheet" th:href="@{/css/swipebox.css}">
+	
+</head>
+
+<body>
+
+<div class="header">
+
+		<div class="nav">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						   <a class="navbar-brand" href="index.html"><img th:src="@{/images/1.png}" alt=""><h1>Mall</h1></a>
+						</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						
+						<ul class="nav navbar-nav navbar-right menu slide">
+							<li><a href="index.html" class="orange">Layout</a></li>
+							<li><a href="about.html" class="orange">Bids</a></li>
+							<li><a href="shopping.html" class="orange">Settings</a></li>
+							<li>
+							<form th:action="@{/admin/logout}" method="get">
+								<button class="btn btn-md btn-danger btn-block" name="registration"
+									type="Submit">Logout</button>
+							</form>   
+							</li>
+						</ul>
+					       
+					</div><!-- navbar-collapse -->
+				</div><!-- container -->
+			</nav>
+			<div class="clearfix"></div>
+		</div> <!-- Nav Ends -->
+</div><!--//header-->
+
+<!--e-grid2-->
+<div class="c-grid2-agileinfo">
+	<div class="container">
+		<div class="c-grid2-padding">
+		  <h2>BIDS </h2>
+
+			<div class="col-md-7 contact-grid-left">
+			
+			<button class="btn btn-md btn-danger btn-block" name="bidAdd" th:onclick="'addBid();'">Add BIDS</button>  
+			
+			<table id="tblData">
+				<thead>
+				 <tr>
+				  <th>BID ID</th>
+				  <th>START DATE</th>
+				  <th>END DATE</th>
+				  <th>FLOOR LEVEL</th>
+				  <th>SHOP NUMBER</th>
+				  <th>MIN RENT</th>
+				  <th>RENT</th>
+				  <th>USER</th>
+				  <th>AUTHORIZE</th>
+				  <th></th>
+				  </tr> 
+				</thead>
+				<tbody>
+				<tr th:each="u,status : ${user.bids}" >
+					<td><input disabled="disabled" th:field="*{user.bids[__${status.index}__].bidID}" value="${u.bidID}"/></td>
+						<td><input  th:field="*{user.bids[__${status.index}__].startDate}" value="${u.startDate}"/></td>
+						<td><input   th:field="*{user.bids[__${status.index}__].endDate}" value="${u.endDate}"/></td>
+						<td><input  th:field="*{user.bids[__${status.index}__].floorLevel}" value="${u.floorLevel}"/></td>
+						<td><input   th:field="*{user.bids[__${status.index}__].shop.shopNumber}" value="${u.shop.shopNumber}"/></td>
+						<td><input   th:field="*{user.bids[__${status.index}__].shop.minRent}" value="${u.shop.minRent}"/></td>
+						<td><input  th:field="*{user.bids[__${status.index}__].shop.rent}" value="${u.shop.rent}"/></td>
+						<td><input  th:field="*{user.email}" value="${user.email}"/></td>
+						<td><input disabled="disabled"  th:type="checkbox" th:checked="${u.authorized}" th:field="*{user.bids[__${status.index}__].authorized}" /></td>
+					
+					<td><a href="#" data-th-href="@{/admin/deleteBid(id=${u.bidID})}">Delete</a> | 
+						<a href="#" data-th-href="@{/admin/editBid(bidID=${u.bidID},startDate=${u.startDate},endDate=${u.endDate},floorLevel=${u.floorLevel},shopNumber=${u.shop.shopNumber},minRent=110,rent=${u.shop.rent})}">Edit</a>
+					</td>
+				</tr>
+				
+					<!-- <tr th:each="p,status : ${bidList}">
+						</tr>
+					<tr>
+					<td><button id="bidBtn" style="display: none;" class="btn btn-lg btn-primary btn-block" name="Submit" value="Save" type="Submit" th:text="Save"></button></td>
+					</tr> -->
+				</tbody>
+			</table>
+			
+			
+			<div th:id="add" style="display: none;" class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#" th:action="@{/admin/addBid}"
+					th:object="${addBid}" method="post" class="form-horizontal"
+					role="form">
+					<div class="form-group">
+						<div class="col-sm-9">
+						<input type="text" th:field="*{startDate}" placeholder="Start Date"
+								class="form-control" /> 
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{endDate}"
+								placeholder="End Date" class="form-control" /> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{floorLevel}"
+								placeholder="Floor Level" class="form-control" /> 
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{shop.shopNumber}"
+								placeholder="Shop Number" class="form-control" /> 
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Add BID</button>
+						</div>
+					</div>
+					
+					<span th:utext="${successMessage}"></span>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
+			
+		  <div class="clearfix"> </div>
+		</div>
+	</div>
+	</div>
+</div>
+<div class="footer-w3l">
+	<div class="container">
+		<ul class="social-agile">
+			<li><a href="#" class="facebook" title="Go to Our Facebook Page"> 			<i class="fa fa-facebook" aria-hidden="true"></i> 		</a></li>
+			<li><a href="#" class="twitter" title="Go to Our Twitter Account"> 			<i class="fa fa-twitter" aria-hidden="true"></i>		</a></li>
+			<li><a href="#" class="vk" title="Go to Our VK Account"> 					<i class="fa fa-vk" aria-hidden="true"></i>				</a></li>
+			<li><a href="#" class="instagram" title="Go to Our Instagram Account">		<i class="fa fa-linkedin" aria-hidden="true"></i>    	</a></li>
+		</ul>
+		<div class="rights-wthree">
+				<p>© 2016 MRS Mall. All Rights Reserved | Design by  <a href="https://w3layouts.com/" target="_blank"> w3layouts </a></p>
+		</div>
+	  <div class="clearfix"> </div>
+	</div>
+</div>
+	
+<script>
+function addBid() {
+    var x = document.getElementById("add");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+function editBid() {
+    var x = document.getElementById("bidBtn");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+    $('.bidInput').prop('disabled', false);
+}
+</script>
+</body>
+</html>
