@@ -41,6 +41,9 @@ public class Bid {
 	
 	@Transient
 	private String floorLevel;
+	
+	@Transient
+	private String email;
 
 	public int getBidID() {
 		return bidID;
@@ -96,6 +99,14 @@ public class Bid {
 
 	public void setRent(double rent) {
 		this.rent = rent;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

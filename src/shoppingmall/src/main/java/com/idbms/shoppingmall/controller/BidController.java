@@ -46,6 +46,7 @@ public class BidController {
 		
 		Role role = userService.findByRole(user.getAuthorities().toString().replace("[", "").replace("]", ""));
 		User users = userService.findUserByEmail(user.getUsername(), role.getId());
+		users.setBids(userService.findAllBids());
 		
 		modelAndView.addObject("user",users);
 		
@@ -137,6 +138,33 @@ public class BidController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value={"/admin/authorizeBid"},method=RequestMethod.GET)
+	public ModelAndView authorizeBid(@Valid User user,BindingResult bindingResult,@RequestParam(value="id", required=true) Integer id){
+		ModelAndView modelAndView = new ModelAndView();
+		
+		
+		org.springframework.security.core.userdetails.User user1 = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Role role = userService.findByRole(user1.getAuthorities().toString().replace("[", "").replace("]", ""));
+		User users = userService.findUserByEmail(user1.getUsername(), role.getId());
+		
+		
+		Bid bid = bidService.findByBidID(id);
+		bid.setAuthorized(true);
+		bid.getShop().setRent(bid.getRent());
+		bid.getShop().setShopOccupied(true);
+		bidService.saveBid(bid, users);
+		
+		users.setBids(userService.findAllBids());
+		
+		modelAndView.addObject("user",users);
+		
+		Bid addBid = new Bid();
+		modelAndView.addObject("addBid",addBid);
+		modelAndView.setViewName("/admin/bids");
+		
+		return modelAndView;
+	}
 	
 	@RequestMapping(value={"/shopOwner/bids"}, method = RequestMethod.GET)
 	public ModelAndView shopOwnerBids(){
@@ -200,7 +228,7 @@ public class BidController {
 		
 		addBid = new Bid();
 		modelAndView.addObject("addBid",addBid);
-		modelAndView.setViewName("/admin/bids");
+		modelAndView.setViewName("/shopOwner/bids");
 		return modelAndView;
 	}
 	

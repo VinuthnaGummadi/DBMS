@@ -131,11 +131,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<td><input  th:field="*{user.bids[__${status.index}__].floorLevel}" value="${u.floorLevel}"/></td>
 						<td><input   th:field="*{user.bids[__${status.index}__].shop.shopNumber}" value="${u.shop.shopNumber}"/></td>
 						<td><input   th:field="*{user.bids[__${status.index}__].shop.minRent}" value="${u.shop.minRent}"/></td>
-						<td><input  th:field="*{user.bids[__${status.index}__].shop.rent}" value="${u.shop.rent}"/></td>
-						<td><input  th:field="*{user.email}" value="${user.email}"/></td>
+						<td><input  th:field="*{user.bids[__${status.index}__].rent}" value="${u.rent}"/></td>
+						<td><input  th:field="*{user.bids[__${status.index}__].email}" value="${u.email}"/></td>
 						<td><input disabled="disabled"  th:type="checkbox" th:checked="${u.authorized}" th:field="*{user.bids[__${status.index}__].authorized}" /></td>
 					
-					<td><a href="#" data-th-href="@{/admin/deleteBid(id=${u.bidID})}">Delete</a> | 
+					<td><a href="#" data-th-href="@{/admin/authorizeBid(id=${u.bidID})}">Authorize</a> |
+						<a href="#" data-th-href="@{/admin/deleteBid(id=${u.bidID})}">Delete</a> | 
 						<a href="#" data-th-href="@{/admin/editBid(bidID=${u.bidID},startDate=${u.startDate},endDate=${u.endDate},floorLevel=${u.floorLevel},shopNumber=${u.shop.shopNumber},minRent=110,rent=${u.shop.rent})}">Edit</a>
 					</td>
 				</tr>

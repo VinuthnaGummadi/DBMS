@@ -113,22 +113,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div th:each="p,iterP : ${mall.floors}" class="s-grid3">
 	<div class="container">
 		<div class="s-grid3-padding">
-          <h2>Select your Shops</h2>
-		  <h6>Floor Level:</h6><h6 th:utext="${p.floorLevel}"></h6>
-		  <h6>Floor Category: </h6><h6 th:utext="${p.floorCategory}"></h6>
-		  <h6>Floor Plan: </h6><h6 th:utext="${p.floorPlan}"></h6>
+          <h2><span>Floor Level </span><span th:utext="${p.floorLevel}"></span> </h2>
+		  <h6><span>Floor Category: </span><span  th:utext="${p.floorCategory}"></span> </h6>
+		  <h6><span>Floor Plan: </span><span  th:utext="${p.floorPlan}"></span></h6>
 			<div th:if="${not #lists.isEmpty(p.shops)}">
 				<div th:each="s,iterS : ${p.shops}" class="col-md-6 col-sm-6 egrid">
 					<div class="img">
-						<img src="images/s1.jpg" alt="">
+						<img th:src="@{/images/s1.jpg}" alt="">
 					</div>
 					<div class="textt">
 						<h3 th:utext="${s.shopName}"></h3>
+						<h3 th:utext="${s.shopNumber}"></h3>
 						<label class="eline"></label>
-						<p>Donec sed odio dui nulla vilae eli libem.Donec sed odio dui nulla vilae eli libem.</p>
-						<a href="#" data-toggle="modal" data-target="#myModal5">READ MORE</a>
+						<p>About Shop</p>
+						<a href="#" data-toggle="modal" th:onclick="'openPopUp(\'' + ${s.shopID} + '\');'">READ MORE</a>
 							<!-- Modal -->
-							<div class="modal fade" id="myModal5" role="dialog">
+							<div class="modal fade" th:id="${s.shopID}" role="dialog" th:fragment="modelContents">
 								<div class="modal-dialog">
 								<!-- Modal content-->
 									<div class="modal-content">

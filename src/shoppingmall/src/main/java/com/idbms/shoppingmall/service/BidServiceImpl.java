@@ -1,5 +1,6 @@
 package com.idbms.shoppingmall.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.idbms.shoppingmall.model.Bid;
 import com.idbms.shoppingmall.model.Floors;
+import com.idbms.shoppingmall.model.Role;
 import com.idbms.shoppingmall.model.Shops;
 import com.idbms.shoppingmall.model.User;
 import com.idbms.shoppingmall.repository.BidRepository;
@@ -105,40 +107,18 @@ public class BidServiceImpl implements BidService {
 	public void saveBid(Bid bid, User user) {
 		try {
 			
-			Query query = entityManager.createNativeQuery(userQuery,User.class);
-	        query.setParameter(1, user.getEmail());
-	        query.setParameter(2, 2);
-	        
-	        user = query.getResultList().isEmpty()?null: (User) query.getResultList().get(0);
-	        
 	        if(user!=null){
 	        	Set<Bid> bids = user.getBids();
-	        	bids.add(bid);
+	        	if(bids!=null)
+	        		bids.add(bid);
+	        	else{
+	        		bids = new HashSet<Bid>();
+	        		bids.add(bid);
+	        	}
 	    		user.setBids(bids);
 	        }
 	        
 	        userRepository.save(user);
-
-			
-			/*Query query = entityManager.createNativeQuery(addBIDQuery);
-	        query.setParameter(1, bid.getBidID());
-	        query.setParameter(2, bid.isAuthorized());
-	        query.setParameter(3, bid.getEndDate());
-	        query.setParameter(4, bid.getStartDate());
-	        query.setParameter(5, bid.getShop().getShopID());
-	        query.setParameter(6, bid.getRent());
-	        
-	        query.executeUpdate();
-	        
-	        entityManager.flush();
-	        
-			query = entityManager.createNativeQuery(addBIDSQuery);
-	        query.setParameter(1, bid.getBidID());
-	        query.setParameter(2, user.getId());
-	        
-	        query.executeUpdate();
-	        
-	        entityManager.flush();*/
 	        
 	        
 		} catch (Exception e) {
