@@ -26,6 +26,12 @@ public class LoginController {
 		modelAndView.setViewName("admin/login");
 		return modelAndView;
 	}
+	@RequestMapping(value={"/customer/login"}, method = RequestMethod.GET)
+	public ModelAndView customerLogin(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("customer/login");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value={"/shopOwner/login"}, method = RequestMethod.GET)
 	public ModelAndView shopOwnerLogin(){

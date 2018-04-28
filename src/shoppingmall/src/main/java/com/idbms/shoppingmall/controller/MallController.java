@@ -75,4 +75,13 @@ public class MallController {
 		modelAndView.setViewName("/shopOwner/layout");
 		return modelAndView;
 	}
+	@RequestMapping(value={"/customer/layout"}, method = RequestMethod.GET)
+	public ModelAndView customerLayout(){
+		ModelAndView modelAndView = new ModelAndView();
+		Mall mall = mallService.findByMallID(1);
+		modelAndView.addObject("mall", mall);
+	      
+		modelAndView.setViewName("/customer/layout");
+		return modelAndView;
+	}
 }

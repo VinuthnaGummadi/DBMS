@@ -14,9 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-/*@Configuration
+@Configuration
 @EnableWebSecurity
-@Order(3)*/
+@Order(1)
 public class SecurityConfigurationCustomer extends WebSecurityConfigurerAdapter{
 
 	@Autowired
@@ -46,20 +46,21 @@ public class SecurityConfigurationCustomer extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.
-			authorizeRequests()
-				.antMatchers("/").permitAll()
-				.antMatchers("/customerLogin").permitAll()
-				.antMatchers("/customerRegistration").permitAll()
-				.antMatchers("/customer/**").hasAuthority("CUSTOMER").anyRequest()
-				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/customerLogin").failureUrl("/customerLogin?error=true")
-				.defaultSuccessUrl("/customerLogin/home")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/customerLogout"))
-				.logoutSuccessUrl("/").and().exceptionHandling()
-				.accessDeniedPage("/access-denied");
+		authorizeRequests()
+			.antMatchers("/").permitAll()
+			.antMatchers("/customer/login").permitAll()
+			.antMatchers("/customer/registration").permitAll()
+			.antMatchers("/customer/**").authenticated()
+			.and().csrf().disable().formLogin()
+			.loginPage("/customer/login")
+			.failureUrl("/customer/login?error=true")
+			.defaultSuccessUrl("/customer/home")
+			.usernameParameter("email")
+			.passwordParameter("password")
+			.and().logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/customer/logout"))
+			.logoutSuccessUrl("/customer/login").and().exceptionHandling()
+			.accessDeniedPage("/access-denied");
 	}
 	
 	@Override

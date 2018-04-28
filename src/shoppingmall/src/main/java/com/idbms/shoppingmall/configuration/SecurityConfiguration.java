@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
-@Order(2)
+@Order(3)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
