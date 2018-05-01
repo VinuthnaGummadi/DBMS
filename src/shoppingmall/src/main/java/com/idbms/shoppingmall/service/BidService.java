@@ -15,4 +15,5 @@ public interface BidService {
 	public Bid findByBidID(Integer bidID);
 
 	public void saveBid(Bid bid, User user);
+	
 }

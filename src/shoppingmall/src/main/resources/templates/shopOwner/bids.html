@@ -80,8 +80,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						
 						<ul class="nav navbar-nav navbar-right menu slide">
-							<li><a href="index.html" class="orange">Layout</a></li>
-							<li><a href="about.html" class="orange">Bids</a></li>
+							<li><a th:href="@{/shopOwner/layout}" class="orange">Layout</a></li>
+							<li><a th:href="@{/shopOwner/bids}" class="orange">Bids</a></li>
 							<li><a href="shopping.html" class="orange">Settings</a></li>
 							<li>
 							<form th:action="@{/shopOwner/logout}" method="get">
@@ -132,7 +132,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<td><input  disabled="disabled"  th:type="checkbox" th:checked="${u.authorized}" th:field="*{user.bids[__${status.index}__].authorized}" /></td>
 					
 					<td>
-						<a href="#" data-th-href="@{/shopOwner/editBid(bidID=${u.bidID},rent=200)}">Edit</a>
+						<a href="#" data-th-href="@{/shopOwner/editBid(bidID=${u.bidID},rent=200,shopNumber=${u.shop.shopNumber})}">Edit</a>
 					</td>
 				</tr>
 				

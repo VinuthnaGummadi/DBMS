@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "BID")
 public class Bid {
@@ -24,9 +26,11 @@ public class Bid {
 	private int bidID;
 	
 	@Column(name="START_DATE")
+	@SQLInjectionSafe
 	private String startDate;
 	
 	@Column(name="END_DATE")
+	@SQLInjectionSafe
 	private String endDate;
 	
 	@Column(name="AUTHORIZED")
@@ -40,9 +44,11 @@ public class Bid {
 	private Shops shop;
 	
 	@Transient
+	@SQLInjectionSafe
 	private String floorLevel;
 	
 	@Transient
+	@SQLInjectionSafe
 	private String email;
 
 	public int getBidID() {

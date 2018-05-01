@@ -1,6 +1,7 @@
 package com.idbms.shoppingmall.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,9 +18,19 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "SHOPS")
 public class Shops {
+	@Transient
+    public static final String INVALID_DATA_PROVIDED = "Invalid data provided";
+	@Transient
+    public static final String ID_WRAPPER = "idWrapper";
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +39,12 @@ public class Shops {
 	
 	@Column(name="SHOP_NAME",length=100)
 	@NotEmpty(message = "*Please provide your shop name")
+	@SQLInjectionSafe
 	private String shopName;
 	
 	@Column(name="CATEGORY",length=100)
 	@NotEmpty(message = "*Please provide your shop category")
+	@SQLInjectionSafe
 	private String category;
 	
 	@Column(name="SHOP_OCCUPIED")
@@ -44,20 +57,23 @@ public class Shops {
 	private double rent;
 	
 	@Column(name="DESCRIPTION")
+	@SQLInjectionSafe
 	private String description;
 	
 	@Column(name="SHOP_NUMBER")
+	@SQLInjectionSafe
 	private String shopNumber;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	/*@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="shop_id",referencedColumnName="shop_id")
-	private Set<Sales> sales = new HashSet<Sales>();
+	private Sales sales = new Sales();*/
 	
 	@Column(name="FLOOR_ID")
 	private int floorID;
 	
 	//Only for input form
 	@Transient
+	@SQLInjectionSafe
 	private String floorLevel;
 
 	public int getShopID() {
@@ -132,13 +148,15 @@ public class Shops {
 		this.shopNumber = shopNumber;
 	}
 
-	public Set<Sales> getSales() {
+	/*
+
+	public Sales getSales() {
 		return sales;
 	}
 
-	public void setSales(Set<Sales> sales) {
+	public void setSales(Sales sales) {
 		this.sales = sales;
-	}
+	}*/
 
 	public String getFloorLevel() {
 		return floorLevel;
@@ -148,6 +166,28 @@ public class Shops {
 		this.floorLevel = floorLevel;
 	}
 	
-	
+    protected String getBindExceptionMessage(BindException be){
+
+        if(be==null && be.getBindingResult()==null){
+            return INVALID_DATA_PROVIDED;
+        }
+
+        List<ObjectError> errors = be.getBindingResult().getAllErrors();
+
+        if(errors==null || errors.isEmpty()){
+            return INVALID_DATA_PROVIDED;
+        }
+
+        for(ObjectError objectError : errors){
+            if(objectError instanceof FieldError){
+                if(ID_WRAPPER.equalsIgnoreCase(objectError.getObjectName())){
+                    return "Invalid 'id' specified";
+                }
+            }
+        }
+
+        return INVALID_DATA_PROVIDED;
+
+    }
 	
 }

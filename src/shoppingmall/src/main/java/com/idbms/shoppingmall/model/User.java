@@ -22,6 +22,8 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Transient;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -34,23 +36,28 @@ public class User {
 	@Column(name = "email",length=255,nullable=false)
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide an email")
+	@SQLInjectionSafe
 	private String email;
 	
 	@Column(name = "password",length=50,nullable=false)
 	@Length(min = 5, message = "*Your password must have at least 5 characters")
 	@NotEmpty(message = "*Please provide your password")
 	@Transient
+	@SQLInjectionSafe
 	private String password;
 	
 	@Column(name = "first_name",length=50,nullable=false)
 	@NotEmpty(message = "*Please provide your first name")
+	@SQLInjectionSafe
 	private String name;
 	
 	@Column(name = "middle_name",length=50)
+	@SQLInjectionSafe
 	private String middleName;
 	
 	@Column(name = "last_name",length=50,nullable=false)
 	@NotEmpty(message = "*Please provide your last name")
+	@SQLInjectionSafe
 	private String lastName;
 	
 	@Column(name = "active",length=1,nullable=false)

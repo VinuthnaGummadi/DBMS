@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "MALL")
 public class Mall {
@@ -26,14 +28,17 @@ public class Mall {
 	private int mallId;
 	
 	@Column(name="MALL_NAME",nullable=false,length=20)
+	@SQLInjectionSafe
 	private String mallName;
 	
 	@Column(name="ADDRESS",nullable=false,length=100)
+	@SQLInjectionSafe
 	private String address;
 	
 	@Column(name="PHONE_NO",length=10,nullable=false)
 	@Size(min=10,max=10)
 	@Pattern(regexp="(^$|[0-9]{10})")
+	@SQLInjectionSafe
 	private String phoneNo;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)

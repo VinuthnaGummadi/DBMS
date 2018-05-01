@@ -11,6 +11,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "USER_PHONE")
 public class UserPhone {
@@ -24,6 +26,7 @@ public class UserPhone {
 	@Length(min = 10,max=10, message = "*Your phone number must be 10 digits")
 	@NotEmpty(message = "*Please provide your Phone Number")
 	@Pattern(regexp="(^$|[0-9]{10})")
+	@SQLInjectionSafe
 	private String phoneNo;
 
 	public int getPhoneID() {

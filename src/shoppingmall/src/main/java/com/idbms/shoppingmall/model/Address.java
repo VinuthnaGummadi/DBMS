@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "USER_ADDRESS")
 public class Address {
@@ -22,26 +24,31 @@ public class Address {
 	@Column(name="STREET",length=100,nullable=false)
 	@Length(max=20, message = "*Your Street should be of maximum 20 characters")
 	@NotEmpty(message = "*Please provide your Street")
+	@SQLInjectionSafe
 	private String street;
 	
 	@Column(name="CITY",length=100,nullable=false)
 	@Length(max=20, message = "*Your City should be of maximum 20 characters")
 	@NotEmpty(message = "*Please provide your CITY")
+	@SQLInjectionSafe
 	private String city;
 	
 	@Column(name="STATE",length=100,nullable=false)
 	@Length(max=20, message = "*Your State should be of maximum 20 characters")
 	@NotEmpty(message = "*Please provide your STATE")
+	@SQLInjectionSafe
 	private String state;
 	
 	@Column(name="COUNTRY",length=100,nullable=false)
 	@Length(max=20, message = "*Your Country should be of maximum 20 characters")
 	@NotEmpty(message = "*Please provide your COUNTRY")
+	@SQLInjectionSafe
 	private String country;
 	
 	@Column(name="PIN",length=5,nullable=false)
 	@Length(min = 5,max=5, message = "*Your pin must be 5 digits")
 	@NotEmpty(message = "*Please provide your PIN")
+	@SQLInjectionSafe
 	private String pin;
 
 	public int getAddressID() {

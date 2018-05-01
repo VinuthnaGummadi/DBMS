@@ -80,8 +80,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						
 						<ul class="nav navbar-nav navbar-right menu slide">
-							<li><a href="index.html" class="orange">Layout</a></li>
-							<li><a href="about.html" class="orange">Bids</a></li>
+							<li><a th:href="@{/admin/layout}" class="orange">Layout</a></li>
+							<li><a th:href="@{/admin/bids}" class="orange">Bids</a></li>
 							<li><a href="shopping.html" class="orange">Settings</a></li>
 							<li>
 							<form th:action="@{/admin/logout}" method="get">

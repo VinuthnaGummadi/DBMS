@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -16,6 +18,7 @@ public class Role {
 	private int id;
 	
 	@Column(name="role",length=20,nullable=false)
+	@SQLInjectionSafe
 	private String role;
 	
 	public int getId() {

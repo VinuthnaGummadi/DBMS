@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.idbms.shoppingmall.util.SQLInjectionSafe;
+
 
 @Entity
 @Table(name = "FLOORS")
@@ -27,14 +29,17 @@ public class Floors {
 	
 	@Column(name="FLOOR_LEVEL",length=100,nullable=false)
 	@NotEmpty(message = "*Please provide your floor level")
+	@SQLInjectionSafe
 	private String floorLevel;
 	
 	@Column(name="FLOOR_PLAN",length=100,nullable=false)
 	@NotEmpty(message = "*Please provide your floor plan")
+	@SQLInjectionSafe
 	private String floorPlan;
 	
 	@Column(name="FLOOR_CATEGORY",length=100,nullable=false)
 	@NotEmpty(message = "*Please provide your floor category")
+	@SQLInjectionSafe
 	private String floorCategory;
 	
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)

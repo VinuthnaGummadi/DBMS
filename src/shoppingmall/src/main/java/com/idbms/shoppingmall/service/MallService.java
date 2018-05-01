@@ -13,4 +13,6 @@ public interface MallService {
 	public void saveShop(Shops shop);
 	
 	public Shops findByShopNumber(String shopNumber);
+	
+	public Mall findMallForShopOwner(String email, int roleID);
 }

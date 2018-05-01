@@ -80,8 +80,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						
 						<ul class="nav navbar-nav navbar-right menu slide">
-							<li><a href="index.html" class="orange">Layout</a></li>
-							<li><a href="about.html" class="orange">Bids</a></li>
+							<li><a th:href="@{/shopOwner/layout}" class="orange">Layout</a></li>
+							<li><a th:href="@{/shopOwner/bids}" class="orange">Bids</a></li>
 							<li><a href="shopping.html" class="orange">Settings</a></li>
 							<li>
 							<form th:action="@{/shopOwner/logout}" method="get">
@@ -126,20 +126,66 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<h3 th:utext="${s.shopNumber}"></h3>
 						<label class="eline"></label>
 						<p>About Shop</p>
-						<a href="#" data-toggle="modal" th:onclick="'openPopUp(\'' + ${s.shopID} + '\');'">READ MORE</a>
+						<h3 th:utext="${s.description}"></h3>
+						<a data-toggle="modal" href="#"  th:onclick="'openPopUp(\'' + ${s.shopID} + '\');'">READ MORE</a>
 							<!-- Modal -->
-							<div class="modal fade" th:id="${s.shopID}" role="dialog" th:fragment="modelContents">
-								<div class="modal-dialog">
-								<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4>Jewellery Shop</h4>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+					<div th:id="${s.shopID}" style="display: none;" class="container">
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+									<form autocomplete="off" action="#" th:action="@{/shopOwner/updateShop}"
+										th:object="${editShop}" method="post" class="form-horizontal"
+										role="form">
+										<div class="form-group">
+											<div class="col-sm-9">
+											<input type="hidden" name="shopID" th:value="${s.shopID}"/>
+											<input type="text" th:value="${s.shopName}" name="shopName" placeholder="Shop Name"
+													class="form-control" /> 
+											</div>
 										</div>
-									</div>
+										
+										<div class="form-group">
+											<div class="col-sm-9">
+											<input type="text" name="shopNumber" placeholder="Shop Number"
+													th:value="${s.shopNumber}" class="form-control" /> 
+											</div>
+										</div>
+					
+										<div class="form-group">
+											<div class="col-sm-9">
+												<input type="text" name="category"
+													th:value="${s.category}" placeholder="Category" class="form-control" /> 
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-9">
+												<input type="text" name="rent"
+													th:value="${s.rent}" placeholder="Rent" class="form-control" /> 
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-sm-9">
+												<textarea name="description"
+													th:value="${s.description}" placeholder="Description" class="form-control" >
+												</textarea> 
+											</div>
+										</div>
+										
+										
+										<div class="form-group">
+											<div class="col-sm-9">
+												<button type="submit" class="btn btn-primary btn-block">Update Shop</button>
+											</div>
+										</div>
+										
+										<span th:utext="${successMessage}"></span>
+										
+										
+									</form>
 								</div>
 							</div>
+						</div>
 					</div>
 				  <div class="clearfix"></div>
 				</div>
@@ -166,6 +212,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	  <div class="clearfix"> </div>
 	</div>
 </div>
+
+<script type="text/javascript">
+
+function openPopUp(id){
+	var x = document.getElementById(id);
+	if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 	
 </body>
 </html>
