@@ -91,8 +91,8 @@ public class BidController {
 		Role role = userService.findByRole(user1.getAuthorities().toString().replace("[", "").replace("]", ""));
 		user = userService.findUserByEmail(user1.getUsername(), role.getId());
 		
-		Bid editBid = new Bid();
-		editBid.setBidID(bidID);
+		Bid editBid = bidService.findByBidID(bidID);
+		
 		editBid.setEndDate(endDate);
 		editBid.setStartDate(startDate);
 		editBid.setFloorLevel(floorLevel);
@@ -103,7 +103,7 @@ public class BidController {
 		editBid.setShop(shop);
 		editBid.setAuthorized(false);
 		
-		bidService.addBid(editBid,user);
+		bidService.saveBid(editBid,user);
 		
 		user = userService.findUserByEmail(user1.getUsername(), role.getId());
 		modelAndView.addObject("user",user);

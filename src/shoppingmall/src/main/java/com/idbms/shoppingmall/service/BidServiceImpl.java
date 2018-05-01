@@ -74,7 +74,21 @@ public class BidServiceImpl implements BidService {
 			bid.setShop(bidShop);
 			bid.setAuthorized(false);
 			
-			bidRepository.save(bid);
+			 if(user!=null){
+		        	Set<Bid> bids = user.getBids();
+		        	if(bids!=null && !bids.isEmpty())
+		        		bids.add(bid);
+		        	else{
+		        		bids = new HashSet<Bid>();
+		        		bids.add(bid);
+		        	}
+		    		user.setBids(bids);
+		        }
+		        
+		        userRepository.save(user);
+			
+			//bidRepository.save(bid);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,7 +123,7 @@ public class BidServiceImpl implements BidService {
 			
 	        if(user!=null){
 	        	Set<Bid> bids = user.getBids();
-	        	if(bids!=null)
+	        	if(bids!=null && !bids.isEmpty())
 	        		bids.add(bid);
 	        	else{
 	        		bids = new HashSet<Bid>();

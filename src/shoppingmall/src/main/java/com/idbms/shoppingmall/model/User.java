@@ -39,23 +39,23 @@ public class User {
 	@SQLInjectionSafe
 	private String email;
 	
-	@Column(name = "password",length=50,nullable=false)
+	@Column(name = "password",length=100,nullable=false)
 	@Length(min = 5, message = "*Your password must have at least 5 characters")
 	@NotEmpty(message = "*Please provide your password")
 	@Transient
 	@SQLInjectionSafe
 	private String password;
 	
-	@Column(name = "first_name",length=50,nullable=false)
+	@Column(name = "first_name",length=100,nullable=false)
 	@NotEmpty(message = "*Please provide your first name")
 	@SQLInjectionSafe
 	private String name;
 	
-	@Column(name = "middle_name",length=50)
+	@Column(name = "middle_name",length=100)
 	@SQLInjectionSafe
 	private String middleName;
 	
-	@Column(name = "last_name",length=50,nullable=false)
+	@Column(name = "last_name",length=100,nullable=false)
 	@NotEmpty(message = "*Please provide your last name")
 	@SQLInjectionSafe
 	private String lastName;
@@ -79,7 +79,7 @@ public class User {
 	@JoinColumn(name="user_id",referencedColumnName="user_id")
 	private List<UserPhone> phone;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(name = "bids", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "bid_id"))
 	private Set<Bid> bids;
 
